@@ -21,7 +21,7 @@ public class Conta {
     @Column(name = "id_conta")
     private Long idConta;
 
-    @Column(unique = true, nullable = false)
+    @Column(name ="numero_conta", unique = true, nullable = false)
     private String numeroConta;
 
     private Boolean ativo = true;

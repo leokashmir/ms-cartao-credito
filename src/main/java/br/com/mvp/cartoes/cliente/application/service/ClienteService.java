@@ -1,8 +1,11 @@
 package br.com.mvp.cartoes.cliente.application.service;
 
 
+import br.com.mvp.cartoes.cartao.application.service.ContaService;
+import br.com.mvp.cartoes.cartao.presentation.dto.ContaDTO;
 import br.com.mvp.cartoes.cliente.application.usercase.ClienteUseCase;
 import br.com.mvp.cartoes.cliente.domain.model.Cliente;
+import br.com.mvp.cartoes.cliente.exception.ClienteException;
 import br.com.mvp.cartoes.cliente.infrastructure.repository.ClienteRepositoryImpl;
 import br.com.mvp.cartoes.cliente.presentation.dto.ClienteRequestDTO;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -15,22 +18,30 @@ public class ClienteService {
 
     private final ClienteRepositoryImpl repository;
     private ClienteUseCase clienteUseCase;
+    private ContaService contaService;
 
     @Inject
-    public ClienteService(ClienteRepositoryImpl repository, ClienteUseCase clienteUseCase) {
+    public ClienteService(ClienteRepositoryImpl repository, ClienteUseCase clienteUseCase, ContaService contaService) {
         this.repository = repository;
         this.clienteUseCase = clienteUseCase;
+        this.contaService = contaService;
     }
 
     public void cadastrarCliente(ClienteRequestDTO request) {
 
         if(!clienteUseCase.isCPFValido(request.getDocumento())){
-            throw new RuntimeException("Documento Invalido");
+            throw new ClienteException("Documento Invalido");
         }
 
         Cliente cliente = mapperDtoToCliente(request);
         cliente.getEnderecos().forEach(endereco -> endereco.setCliente(cliente));
-        repository.cadastrarCliente(cliente);
+        var clienteSalvo = repository.cadastrarCliente(cliente);
+
+        contaService.criarConta(ContaDTO.builder()
+                        .ativo(true)
+                        .cliente(clienteSalvo)
+                .build());
+
 
 
     }
