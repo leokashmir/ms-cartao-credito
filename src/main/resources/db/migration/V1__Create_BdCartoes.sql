@@ -3,7 +3,7 @@ USE dbcartoes;
 
 -- Tabela Cliente
 CREATE TABLE Cliente (
-    id_Cliente INT AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     documento VARCHAR(20) UNIQUE NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
@@ -21,21 +21,21 @@ CREATE TABLE Endereco (
     cidade VARCHAR(100) NOT NULL,
     estado VARCHAR(2) NOT NULL,
     codigo_postal VARCHAR(20) NOT NULL,
-    id_Cliente INT NOT NULL,
+    id_cliente INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_Cliente) REFERENCES Cliente(id_Cliente)
+    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
 );
 
 -- Tabela Conta
 CREATE TABLE Conta (
     id_conta INT AUTO_INCREMENT PRIMARY KEY,
     numero_conta VARCHAR(50) UNIQUE NOT NULL,
-    id_Cliente INT NOT NULL,
+    id_cliente INT NOT NULL,
     ativo BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_Cliente) REFERENCES Cliente(id_Cliente)
+    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
 );
 
 -- Tabela Cartao

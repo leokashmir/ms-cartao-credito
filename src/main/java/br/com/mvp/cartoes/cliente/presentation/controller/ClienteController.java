@@ -1,6 +1,7 @@
 package br.com.mvp.cartoes.cliente.presentation.controller;
 
 import br.com.mvp.cartoes.cliente.application.service.ClienteService;
+import br.com.mvp.cartoes.cliente.domain.model.Cliente;
 import br.com.mvp.cartoes.cliente.presentation.dto.ClienteRequestDTO;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -28,19 +29,21 @@ public class ClienteController {
 
     @PATCH
     public Response updateCliente(ClienteRequestDTO userRequestDTO) {
-        return Response.status(Response.Status.CREATED).build();
+        clienteService.atualizarCliente(userRequestDTO);
+        return Response.status(Response.Status.OK).build();
     }
 
     @GET
     @Path("/{document}")
-    public Response getClienteByDocument(@PathParam("document") Long id) {
-        return Response.ok("usuario").build();
+    public Response getClienteByDocument(@PathParam("document") String documento) {
+
+        return Response.ok(clienteService.buscarPorDocumento(documento)).build();
     }
 
     @DELETE
     @Path("/{document}")
     public Response deleteCliente(@PathParam("document") Long id) {
-
+        clienteService.excluirCliente(id);
         return Response.noContent().build();
     }
 

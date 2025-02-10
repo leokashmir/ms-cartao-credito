@@ -7,6 +7,7 @@ import lombok.Setter;
 @Builder @Getter @Setter
 public class EnderecoDTO {
 
+    private Long idEndereco;
     private String logradouro;
     private String numero;
     private String complemento;

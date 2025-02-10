@@ -1,6 +1,7 @@
 package br.com.mvp.cartoes.cartao.domain.model;
 
 import br.com.mvp.cartoes.cartao.domain.enuns.TipoCartao;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +19,7 @@ public class Cartao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_cartao")
     private Long idCartao;
 
     @Column(unique = true, nullable = false)
@@ -33,6 +35,7 @@ public class Cartao {
     private TipoCartao tpCartao;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "id_conta", nullable = false)
     private Conta conta;
 

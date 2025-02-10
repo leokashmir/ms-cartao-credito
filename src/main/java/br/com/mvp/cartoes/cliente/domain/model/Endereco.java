@@ -1,5 +1,6 @@
 package br.com.mvp.cartoes.cliente.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -15,6 +16,7 @@ public class Endereco {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_endereco")
     private Long idEndereco;
 
     private String logradouro;
@@ -29,6 +31,7 @@ public class Endereco {
 
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "id_cliente", nullable = false)
     private Cliente cliente;
 

@@ -15,5 +15,5 @@ public class ClienteRequestDTO {
     private String nome;
     private String documento;
     private String email;
-    private List<EnderecoDTO> enderecoList;
+    private List<EnderecoDTO> enderecos;
 }
