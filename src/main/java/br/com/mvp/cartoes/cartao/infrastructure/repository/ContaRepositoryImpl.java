@@ -2,6 +2,7 @@ package br.com.mvp.cartoes.cartao.infrastructure.repository;
 
 import br.com.mvp.cartoes.cartao.domain.model.Conta;
 import br.com.mvp.cartoes.cartao.domain.repository.ContaInterface;
+import br.com.mvp.cartoes.cartao.exception.ContaException;
 import br.com.mvp.cartoes.cartao.infrastructure.adapter.ContaRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
@@ -20,8 +21,12 @@ public class ContaRepositoryImpl implements ContaRepository , ContaInterface {
     @Transactional
     @Override
     public Conta criarConta(Conta conta) {
-        this.persist(conta);
-        return conta;
+        try{
+            this.persist(conta);
+            return conta;
+        } catch (Exception e) {
+            throw new ContaException("Não foi Possivel criar uma conta!");
+        }
     }
 
     @Override
