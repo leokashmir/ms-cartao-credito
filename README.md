@@ -70,7 +70,8 @@ If you want to learn more about building native executables, please consult <htt
 |:-------|:---------------------------------------|
 |  ✅      | Criaçao da estrutura do Porjeto        |
 |  ✅     | Modelagem de Dados                     |
-|  🔴      | Criação Serviço de Cadastro do Cliente |
+|  ✅       | Criação Serviço de Cadastro do Cliente |
+|  ✅       | Criação do Serviço da conta            |
 |  🔴      | Criação do Serviço de Cartão           |
 |  🔴      | Criação do Webhook                     |
 
