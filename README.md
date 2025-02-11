@@ -72,8 +72,12 @@ If you want to learn more about building native executables, please consult <htt
 |  ✅     | Modelagem de Dados                     |
 |  ✅       | Criação Serviço de Cadastro do Cliente |
 |  ✅       | Criação do Serviço da conta            |
-|  🔴      | Criação do Serviço de Cartão           |
+|  🟡      | Criação do Serviço de Cartão           |
 |  🔴      | Criação do Webhook                     |
+✅ Concluido   🟡 Em andamento  🔴 Não iniciado
+
+
+
 
 
 
