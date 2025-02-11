@@ -13,19 +13,24 @@ public class ContaService {
 
     private ContaUseCase contaUseCase;
     private ContaRepositoryImpl contaRepository;
+    private CartaoService cartaoService;
     private ModelMapper modelMapper;
 
     @Inject
-    public ContaService(ContaRepositoryImpl contaRepository, ContaUseCase contaUseCase) {
+    public ContaService(ContaRepositoryImpl contaRepository, CartaoService cartaoService, ContaUseCase contaUseCase) {
         this.contaRepository = contaRepository;
+        this.cartaoService = cartaoService;
         this.contaUseCase = contaUseCase;
     }
+
 
 
     public Conta criarConta(ContaDTO contaDto) {
         modelMapper = new ModelMapper();
         var conta = modelMapper.map(contaDto, Conta.class);
         conta.setNumeroConta(contaUseCase.gerarConta());
+
+
         return contaRepository.criarConta(conta);
     }
 }

@@ -3,8 +3,7 @@ package br.com.mvp.cartoes.cartao.domain.model;
 import br.com.mvp.cartoes.cartao.domain.enuns.TipoCartao;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -14,6 +13,9 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "Cartao")
 public class Cartao {
 
@@ -22,24 +24,23 @@ public class Cartao {
     @Column(name = "id_cartao")
     private Long idCartao;
 
-    @Column(unique = true, nullable = false)
+    @Column(name="num_cartao", unique = true, nullable = false)
     private String numCartao;
+
+    @Column(name="nome", unique = true, nullable = false)
+    private String nome;
 
     @Column(nullable = false)
     private String cvv;
 
-    @Column(nullable = false)
+    @Column(name="dt_validade",nullable = false)
     private LocalDate dtValidade;
 
     @Enumerated(EnumType.STRING)
+    @Column(name="tp_cartao")
     private TipoCartao tpCartao;
 
-    @ManyToOne
-    @JsonBackReference
-    @JoinColumn(name = "id_conta", nullable = false)
-    private Conta conta;
-
-    private Boolean ativo = true;
+    private Boolean ativo;
 
     @Column(name = "created_at")
     @CreationTimestamp
