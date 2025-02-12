@@ -7,7 +7,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-@Path("/user")
+@Path("/cliente")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class ClienteController {
@@ -40,8 +40,8 @@ public class ClienteController {
     }
 
     @DELETE
-    @Path("/{document}")
-    public Response deleteCliente(@PathParam("document") Long id) {
+    @Path("/{id}")
+    public Response deleteCliente(@PathParam("id") Long id) {
         clienteService.excluirCliente(id);
         return Response.noContent().build();
     }
