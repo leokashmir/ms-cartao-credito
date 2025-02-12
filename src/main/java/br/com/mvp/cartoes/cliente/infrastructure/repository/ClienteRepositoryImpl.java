@@ -37,6 +37,7 @@ public class ClienteRepositoryImpl implements ClienteInterface, ClienteRepositor
 
 
     @Override
+    @Transactional
     public void excluirCliente(Cliente cliente) {
         this.delete(cliente);
     }

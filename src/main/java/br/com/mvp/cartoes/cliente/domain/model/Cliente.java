@@ -1,5 +1,6 @@
 package br.com.mvp.cartoes.cliente.domain.model;
 
+import br.com.mvp.cartoes.cartao.domain.model.Conta;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -33,6 +34,10 @@ public class Cliente {
     @JsonManagedReference
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Endereco> enderecos;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Conta> contas;
 
     @Column(name = "created_at")
     @CreationTimestamp

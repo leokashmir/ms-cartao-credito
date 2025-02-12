@@ -19,14 +19,17 @@ public class CartaoUseCase {
     private static final RandomGenerator RANDOM = RandomGenerator.getDefault();
 
     public Cartao gerarCartao(Conta conta, TipoCartao tipoCartao) {
-        var nomeImpresso = conta.getCliente().getNome().substring(0,20);
+
+        var nomeCliente = conta.getCliente().getNome();
+        var nomeImpresso = nomeCliente.length() > 20 ? nomeCliente.substring(0, 20) : nomeCliente;
+
 
         return Cartao.builder()
                 .tpCartao(tipoCartao)
                 .numCartao(gerarNumeroCartao())
                 .cvv(gerarCvv())
                 .dtValidade(gerarDataValidade())
-                .nome(nomeImpresso)
+                .titular(nomeImpresso)
                 .build();
     }
 

@@ -11,6 +11,7 @@ import br.com.mvp.cartoes.cliente.presentation.dto.ClienteRequestDTO;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 
 @ApplicationScoped
 public class ClienteService {
@@ -33,7 +34,7 @@ public class ClienteService {
             throw new ClienteException("Documento Invalido");
         }
 
-        Cliente cliente = mapperDtoToCliente(request);
+        Cliente cliente = mapperDtoToCliente().map(request,Cliente.class);
         cliente.getEnderecos().forEach(endereco -> endereco.setCliente(cliente));
         var clienteSalvo = repository.cadastrarCliente(cliente);
 
@@ -41,9 +42,6 @@ public class ClienteService {
                         .ativo(true)
                         .cliente(clienteSalvo)
                 .build());
-
-
-
     }
 
     public Cliente buscarPorDocumento(String documento) {
@@ -51,9 +49,9 @@ public class ClienteService {
     }
 
     public void atualizarCliente(ClienteRequestDTO request) {
-        Cliente cliente = mapperDtoToCliente(request);
-        cliente.getEnderecos().forEach(endereco -> endereco.setCliente(cliente));
 
+        var cliente = repository.findById(request.getIdCliente());
+        mapperDtoToCliente().map(request,cliente);
         repository.atualizarCliente(cliente);
     }
 
@@ -61,9 +59,12 @@ public class ClienteService {
         repository.excluirCliente(Cliente.builder().idCliente(idCliente).build());
     }
 
-    private Cliente mapperDtoToCliente(ClienteRequestDTO request) {
+    private ModelMapper mapperDtoToCliente() {
         ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(request, Cliente.class);
-
+         modelMapper.getConfiguration()
+                .setFieldMatchingEnabled(true)
+                .setSkipNullEnabled(true)
+                .setMatchingStrategy(MatchingStrategies.STRICT);
+        return modelMapper;
     }
 }

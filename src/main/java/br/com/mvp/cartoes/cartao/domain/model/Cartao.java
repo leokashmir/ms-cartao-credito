@@ -24,13 +24,13 @@ public class Cartao {
     @Column(name = "id_cartao")
     private Long idCartao;
 
-    @Column(name="num_cartao", unique = true, nullable = false)
+    @Column(name="num_cartao", unique = true, nullable = false, length = 16)
     private String numCartao;
 
-    @Column(name="nome", unique = true, nullable = false)
-    private String nome;
+    @Column(name="titular", unique = true, nullable = false)
+    private String titular;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 3)
     private String cvv;
 
     @Column(name="dt_validade",nullable = false)
@@ -39,6 +39,11 @@ public class Cartao {
     @Enumerated(EnumType.STRING)
     @Column(name="tp_cartao")
     private TipoCartao tpCartao;
+
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "id_conta", nullable = false)
+    private Conta conta;
 
     private Boolean ativo;
 

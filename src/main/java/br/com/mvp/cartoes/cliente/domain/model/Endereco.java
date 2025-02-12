@@ -19,11 +19,17 @@ public class Endereco {
     @Column(name = "id_endereco")
     private Long idEndereco;
 
+    @Column(nullable = false)
     private String logradouro;
+    @Column(nullable = false)
     private String numero;
+
     private String complemento;
+    @Column(nullable = false)
     private String bairro;
+    @Column(nullable = false)
     private String cidade;
+    @Column(nullable = false)
     private String estado;
 
     @Column(name = "codigo_postal", nullable = false)

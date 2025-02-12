@@ -32,14 +32,13 @@ public class Conta {
     private Boolean ativo;
 
     @ManyToOne
-    @JsonManagedReference
+    @JsonBackReference
     @JoinColumn(name = "id_cliente", nullable = false)
     private Cliente cliente;
 
-    @OneToMany
-    @JsonBackReference
-    @JoinColumn(name = "id_cartao", nullable = false)
-    private List<Cartao> cartao;
+    @OneToMany(mappedBy = "conta", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Cartao> cartoes;
 
     @Column(name = "created_at")
     @CreationTimestamp

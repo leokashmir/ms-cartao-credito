@@ -1,7 +1,6 @@
 package br.com.mvp.cartoes.cliente.presentation.controller;
 
 import br.com.mvp.cartoes.cliente.application.service.ClienteService;
-import br.com.mvp.cartoes.cliente.domain.model.Cliente;
 import br.com.mvp.cartoes.cliente.presentation.dto.ClienteRequestDTO;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;

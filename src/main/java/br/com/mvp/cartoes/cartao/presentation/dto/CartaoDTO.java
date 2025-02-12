@@ -14,6 +14,7 @@ public class CartaoDTO {
     private Long idCartao;
     private String numCartao;
     private String cvv;
+    private String titular;
     private LocalDate dtValidade;
     private TipoCartao tpCartao;
     private Conta conta;

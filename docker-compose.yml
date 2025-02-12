@@ -11,7 +11,8 @@ services:
     environment:
       MYSQL_DATABASE: dbcartoes
       MYSQL_ROOT_PASSWORD: root
-
+    volumes:
+      - ./init-scripts:/docker-entrypoint-initdb.d
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
       interval: 10s
