@@ -39,7 +39,9 @@ public class ClienteRepositoryImpl implements ClienteInterface, ClienteRepositor
     @Override
     @Transactional
     public void excluirCliente(Cliente cliente) {
-        this.delete(cliente);
+        if(!deleteById(cliente.getIdCliente())){
+            throw new ClienteException("Não existe um cliente com este identificador.");
+        };
     }
 
     @Override
@@ -52,6 +54,16 @@ public class ClienteRepositoryImpl implements ClienteInterface, ClienteRepositor
     public void atualizarCliente(Cliente cliente) {
         entityManager.merge(cliente);
         entityManager.flush();
+    }
+
+    @Override
+    public Cliente buscarPorDocumento(String documento) {
+        return this.findByDocumento(documento);
+    }
+
+    @Override
+    public Cliente buscarPorId(Long id) {
+        return this.findById(id);
     }
 
 

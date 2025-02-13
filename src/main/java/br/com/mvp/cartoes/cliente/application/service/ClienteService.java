@@ -5,30 +5,33 @@ import br.com.mvp.cartoes.cartao.application.service.ContaService;
 import br.com.mvp.cartoes.cartao.presentation.dto.ContaDTO;
 import br.com.mvp.cartoes.cliente.application.usercase.ClienteUseCase;
 import br.com.mvp.cartoes.cliente.domain.model.Cliente;
+import br.com.mvp.cartoes.cliente.domain.repository.ClienteInterface;
 import br.com.mvp.cartoes.cliente.exception.ClienteException;
-import br.com.mvp.cartoes.cliente.infrastructure.repository.ClienteRepositoryImpl;
-import br.com.mvp.cartoes.cliente.presentation.dto.ClienteRequestDTO;
+import br.com.mvp.cartoes.cliente.presentation.dto.ClientePatchRequestDTO;
+import br.com.mvp.cartoes.cliente.presentation.dto.ClientePostRequestDTO;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 
+import java.util.Objects;
+
 @ApplicationScoped
 public class ClienteService {
 
 
-    private final ClienteRepositoryImpl repository;
+    private final ClienteInterface repository;
     private ClienteUseCase clienteUseCase;
     private ContaService contaService;
 
     @Inject
-    public ClienteService(ClienteRepositoryImpl repository, ClienteUseCase clienteUseCase, ContaService contaService) {
+    public ClienteService(ClienteInterface repository, ClienteUseCase clienteUseCase, ContaService contaService) {
         this.repository = repository;
         this.clienteUseCase = clienteUseCase;
         this.contaService = contaService;
     }
 
-    public void cadastrarCliente(ClienteRequestDTO request) {
+    public void cadastrarCliente(ClientePostRequestDTO request) {
 
         if(!clienteUseCase.isCPFValido(request.getDocumento())){
             throw new ClienteException("Documento Invalido");
@@ -45,17 +48,27 @@ public class ClienteService {
     }
 
     public Cliente buscarPorDocumento(String documento) {
-        return repository.findByDocumento(documento);
+        return repository.buscarPorDocumento(documento);
     }
 
-    public void atualizarCliente(ClienteRequestDTO request) {
+    public void atualizarCliente(ClientePatchRequestDTO request) {
 
-        var cliente = repository.findById(request.getIdCliente());
-        mapperDtoToCliente().map(request,cliente);
-        repository.atualizarCliente(cliente);
+        var cliente = repository.buscarPorId(request.getIdCliente());
+        if(Objects.isNull(cliente)){
+            throw new ClienteException("Cliente não cadastrado na base.");
+        }
+
+        try {
+            mapperDtoToCliente().map(request, cliente);
+            repository.atualizarCliente(cliente);
+        } catch (Exception e) {
+            throw new ClienteException("Não foi possivel atualizar cliente.");
+        }
     }
 
     public void excluirCliente(Long idCliente) {
+
+        contaService.excluirContaCliente(idCliente);
         repository.excluirCliente(Cliente.builder().idCliente(idCliente).build());
     }
 

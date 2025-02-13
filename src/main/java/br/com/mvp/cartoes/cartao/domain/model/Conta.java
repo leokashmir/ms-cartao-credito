@@ -32,7 +32,6 @@ public class Conta {
     private Boolean ativo;
 
     @ManyToOne
-    @JsonBackReference
     @JoinColumn(name = "id_cliente", nullable = false)
     private Cliente cliente;
 

@@ -2,10 +2,16 @@ package br.com.mvp.cartoes.cartao.domain.repository;
 
 import br.com.mvp.cartoes.cartao.domain.model.Conta;
 
+import java.util.List;
+
 public interface ContaInterface {
 
     Boolean contaExiste(String numero);
     Conta criarConta(Conta conta);
-    void apagarConta(String numero);
-    Conta getConta(String numero);
+    void excluirContaPorNumero(String numero);
+    Conta buscarContaPorNumero(String numero);
+    void excluirContaPorIdCliente(Long idCliente);
+    Conta buscarContaPorId(Long idConta);
+    List<Conta> listaContasPorIdCliente(Long idCliente);
 }
+

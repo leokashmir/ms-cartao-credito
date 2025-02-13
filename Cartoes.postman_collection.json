@@ -1,0 +1,392 @@
+{
+	"info": {
+		"_postman_id": "14adb972-8f04-4cee-b711-72875e138978",
+		"name": "Cartoes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1027151"
+	},
+	"item": [
+		{
+			"name": "WebHook",
+			"item": [
+				{
+					"name": "webhooks/delivery",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-API-KEY",
+								"value": "zdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ik"
+							},
+							{
+								"key": "X-API-KEY",
+								"value": "dfgdgd",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"tracking_id\": \"123456789\",\r\n  \"delivery_status\": \"DELIVERED\",\r\n  \"delivery_date\": \"2025-02-11T14:30:00\",\r\n  \"delivery_return_reason\": null,\r\n  \"delivery_address\": \"Rua das Flores, 123, São Paulo\",\r\n  \"idCartao\": 12\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/bank/webhooks/delivery",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bank",
+								"webhooks",
+								"delivery"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "webhooks/cvv-change",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-API-KEY",
+								"value": "zdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ik"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"account_id\": \"987654321\",\r\n  \"card_id\": \"1234-5678-9876-5432\",\r\n  \"next_cvv\": 321,\r\n  \"expiration_date\": \"2025-02-12T14:30:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/bank/webhooks/cvv-change",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bank",
+								"webhooks",
+								"cvv-change"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST http://localhost:8080/webhooks/cvv-change \\\r\n-H \"Content-Type: application/json\" \\\r\n-H \"X-API-KEY: minha-api-key-secreta\" \\\r\n-d '{\r\n  \"account_id\": \"987654321\",\r\n  \"card_id\": \"1234-5678-9876-5432\",\r\n  \"next_cvv\": 321,\r\n  \"expiration_date\": \"2025-02-12T14:30:00\"\r\n}'\r\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cliente",
+			"item": [
+				{
+					"name": "POST-Cliente",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n    \"nome\":\"James Douglas Morrison\",\r\n    \"documento\":\"89907213004\",\r\n    \"email\": null,\r\n    \"enderecos\":[\r\n        {\r\n           \r\n            \"logradouro\":\"rua do amor s\",\r\n            \"numero\":\"123\",\r\n            \"complemento\": \"1\",\r\n            \"bairro\":\"centro\",\r\n            \"cidade\":\"Sao Paulo\",\r\n            \"estado\":\"SP\",\r\n            \"codigoPostal\":\"04155484\",\r\n            \"pais\":\"BR\"\r\n        }\r\n    ]\r\n\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/bank/cliente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bank",
+								"cliente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH-Cliente",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idCliente\": 43,\r\n    \"nome\":\"James Morrison\"\r\n    \r\n    \r\n\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/bank/cliente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bank",
+								"cliente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET-Cliente",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-document",
+								"value": "89907213004",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/bank/cliente/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bank",
+								"cliente",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE-Cliente",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/bank/cliente/9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bank",
+								"cliente",
+								"9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cartao",
+			"item": [
+				{
+					"name": "GET-Cartao",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/bank/cartao/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bank",
+								"cartao",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST-Cartao",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idConta\":\"5\",\r\n    \"ativo\":\"false\",\r\n    \"tipo\":\"FISICO\"\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/bank/cartao",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bank",
+								"cartao"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET-Tracking",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/bank/cartao/tracking/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bank",
+								"cartao",
+								"tracking",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Conta",
+			"item": [
+				{
+					"name": "GET-Conta",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/bank/conta/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bank",
+								"conta",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE-Conta",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/bank/conta/9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bank",
+								"conta",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT - Conta",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/bank/conta/cancelar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bank",
+								"conta",
+								"cancelar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

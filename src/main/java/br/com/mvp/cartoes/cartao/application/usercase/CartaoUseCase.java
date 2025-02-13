@@ -4,10 +4,13 @@ package br.com.mvp.cartoes.cartao.application.usercase;
 import br.com.mvp.cartoes.cartao.domain.enuns.TipoCartao;
 import br.com.mvp.cartoes.cartao.domain.model.Cartao;
 import br.com.mvp.cartoes.cartao.domain.model.Conta;
+import br.com.mvp.cartoes.cartao.domain.model.Tracking;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.random.RandomGenerator;
@@ -22,15 +25,29 @@ public class CartaoUseCase {
 
         var nomeCliente = conta.getCliente().getNome();
         var nomeImpresso = nomeCliente.length() > 20 ? nomeCliente.substring(0, 20) : nomeCliente;
-
+        var ativo = !TipoCartao.FISICO.equals(tipoCartao);
 
         return Cartao.builder()
                 .tpCartao(tipoCartao)
                 .numCartao(gerarNumeroCartao())
                 .cvv(gerarCvv())
                 .dtValidade(gerarDataValidade())
+                .dataExpiracaoCvv(gerarDataValidade().atTime(23, 59, 59))
+                .ativo(ativo)
                 .titular(nomeImpresso)
                 .build();
+    }
+
+    public Tracking gerarTracking() {
+        Random random = new Random();
+        var numTracking  =  String.format("%08d", random.nextInt(100000000));
+
+        return Tracking.builder()
+                .trackingId(numTracking)
+                .deliveryStatus("SHIPPED")
+                .deliveryDate(LocalDateTime.now())
+                .build();
+
     }
 
     private String gerarNumeroCartao(){
@@ -75,4 +92,6 @@ public class CartaoUseCase {
         );
         return dataMinima.plusDays(diasAleatorios);
     }
+
+
 }

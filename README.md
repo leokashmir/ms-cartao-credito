@@ -73,11 +73,66 @@ If you want to learn more about building native executables, please consult <htt
 |  ✅       | Criação Serviço de Cadastro do Cliente |
 |  ✅       | Criação do Serviço da conta            |
 |  ✅      | Criação do Serviço de Cartão           |
-|  🟡      | Criação do Webhook                     |
-|  🔴      | Re-factory                             |
-|  🔴      | Teste unitarios                        |
+|  ✅      | Criação do Webhook                     |
+|  ✅      | Teste unitarios                        |
 ✅ Concluido   🟡 Em andamento  🔴 Não iniciado
 
+
+
+# API Reference
+
+## API - Cartao
+
+
+
+| Metodo | URL                                 | Retorno HTTP Codigos                                  | Descrição                   |
+|:-------|:------------------------------------|:------------------------------------------------------|-----------------------------|
+| `POST` | `/bank/cartao `                     | 200 Realizada com Sucesso | Inclusão do Cartão          |
+| `GET`  | `/bank/cartao/tracking/{idCartao} ` | 200 Realizada com Sucesso | Busca Cartão Pelo TrakingId |
+| `GET`  | `/bank/cartao/{idConta} `           | 200 Realizada com Sucesso | Retorna uma Lista De cartões |
+
+
+
+## API - Conta
+
+
+| Metodo  | URL                        | Retorno HTTP Codigos                                  | Descrição                |
+|:--------|:---------------------------|:------------------------------------------------------|--------------------------|
+| `PUT`   | `/bank/conta/cancelar `    | 200 Realizada com Sucesso | Cancelar Conta           |
+| `GET`   | `/bank/conta/{idCliente} ` | 200 Realizada com Sucesso | Listar Contas do Cliente |
+| `DELETE` | `/bank/cartao/{idConta} `  | 200 Realizada com Sucesso | Excluir Conta             |
+
+
+
+## API - Cliente
+
+
+| Metodo   | URL                   | Retorno HTTP Codigos       | Descrição            |
+|:---------|:----------------------|:---------------------------|----------------------|
+| `POST`   | `/bank/cliente `      | 200 Realizada com Sucesso | Inclusão do Cliente  |
+| `GET`    | `/bank/cliente `      | 200 Realizada com Sucesso | Busca de Cliente     |
+| `PATCH`  | `/bank/cliente `      | 200 Realizada com Sucesso | Alteração do Cliente |
+| `DELETE` | `/bank/cliente/{id} ` | 200 Realizada com Sucesso | Exclusão do Cliente  |
+
+
+## API - Webhook
+
+ ```
+API-KEY : "zdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ik"
+```
+
+| Metodo | URL                          | Retorno HTTP Codigos       | Descrição             |
+|:-------|:-----------------------------|:---------------------------|-----------------------|
+| `POST` | `/bank/webhooks/cvv-change ` | 200 Realizada com Sucesso | Alterar CVV de Cartão |
+| `POST` | `/bank/webhooks/delivery `   | 200 Realizada com Sucesso | Validar Cartão        |
+
+### Mais informações 
+http://localhost:8080/swagger-ui
+
+
+## Informações:
+- Executar o Dcoker-compose -up para carregar o banco de dados. ( O Docker tem que esta rodando)
+- No diretorio raiz, existe um arquivo "Cartoes.postman_collection.json" que possui as collections das apis.
 
 
 

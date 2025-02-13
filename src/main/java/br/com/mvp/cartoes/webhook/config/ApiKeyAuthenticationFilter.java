@@ -49,7 +49,12 @@ public class ApiKeyAuthenticationFilter implements ContainerRequestFilter {
 
     private List<Pattern> naoRequerAutenticacao(){
       return  Arrays.asList(
-              Pattern.compile("^/cliente/.*")
+              Pattern.compile("^/cliente/.*"),
+              Pattern.compile("^/cliente"),
+              Pattern.compile("^/cartao"),
+              Pattern.compile("^/cartao/.*"),
+              Pattern.compile("^/conta"),
+              Pattern.compile("^/conta/.*")
         );
     }
 }

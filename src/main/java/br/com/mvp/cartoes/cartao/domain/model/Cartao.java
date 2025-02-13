@@ -54,4 +54,9 @@ public class Cartao {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @Column(name = "dt_expiracao_cvv")
+    private LocalDateTime dataExpiracaoCvv;
+
+
 }

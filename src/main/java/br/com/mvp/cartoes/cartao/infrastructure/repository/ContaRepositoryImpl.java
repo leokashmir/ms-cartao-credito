@@ -7,6 +7,7 @@ import br.com.mvp.cartoes.cartao.infrastructure.adapter.ContaRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 
+import java.util.List;
 import java.util.Objects;
 
 @ApplicationScoped
@@ -30,13 +31,29 @@ public class ContaRepositoryImpl implements ContaRepository , ContaInterface {
     }
 
     @Override
-    public void apagarConta(String numero) {
+    public void excluirContaPorNumero(String numero) {
         this.apagarContaByNumero(numero);
     }
 
     @Override
-    public Conta getConta(String numero) {
+    public Conta buscarContaPorNumero(String numero) {
         return this.findByNumeroConta(numero);
+    }
+
+    @Transactional
+    @Override
+    public void excluirContaPorIdCliente(Long idCliente) {
+        delete("cliente.idCliente", idCliente);
+    }
+
+    @Override
+    public Conta buscarContaPorId(Long idConta) {
+        return findById(idConta);
+    }
+
+    @Override
+    public List<Conta> listaContasPorIdCliente(Long idCliente) {
+        return list("cliente.idCliente", idCliente);
     }
 
 
