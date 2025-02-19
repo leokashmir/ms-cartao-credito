@@ -41,6 +41,20 @@ public class CartaoService {
         if(conta == null) {
             throw  new ContaException("Conta não encontrada");
         }
+//        cartaoInterface.listarCartoes(conta.getIdConta()).forEach( cartao -> {
+//                if(TipoCartao.FISICO.equals(requestDTO.getTipo()) && !cartao.getAtivo() ){
+//                    throw  new ContaException("Geração do novo cartão não autorizada ");
+//                 }
+//        });
+
+        cartaoInterface.listarCartoes(conta.getIdConta()).stream()
+                .filter(cartao -> TipoCartao.FISICO.equals(requestDTO.getTipo()) && !cartao.getAtivo())
+                .findFirst()
+                .ifPresent( cartao ->{
+                    throw  new ContaException("Geração do novo cartão não autorizada ");
+                });
+
+
 
         var cartao = this.gerarCartaoCredito(conta, requestDTO.getTipo());
         cartao.setConta(conta);
