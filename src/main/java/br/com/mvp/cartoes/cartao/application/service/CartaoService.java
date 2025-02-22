@@ -15,8 +15,10 @@ import jakarta.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Slf4j
 @ApplicationScoped
@@ -42,14 +44,20 @@ public class CartaoService {
             throw  new ContaException("Conta não encontrada");
         }
 
-        cartaoInterface.listarCartoes(conta.getIdConta()).stream()
+        List<Cartao> cartoes = cartaoInterface.listarCartoes(conta.getIdConta());
+
+        Optional.ofNullable(cartoes)
+                .filter(list -> !list.isEmpty())
+                .orElseGet(() -> {
+                    requestDTO.setTipo(TipoCartao.FISICO);
+                    return Collections.emptyList();
+                })
+                .stream()
                 .filter(cartao -> TipoCartao.FISICO.equals(cartao.getTpCartao()) && !cartao.getAtivo())
                 .findFirst()
-                .ifPresent( cartao ->{
-                    throw  new ContaException("Geração do novo cartão não autorizada ");
+                .ifPresent(cartao -> {
+                    throw new ContaException("Geração do novo cartão não autorizada");
                 });
-
-
 
         var cartao = this.gerarCartaoCredito(conta, requestDTO.getTipo());
         cartao.setConta(conta);

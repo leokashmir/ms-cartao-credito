@@ -73,8 +73,8 @@ CREATE TABLE Tracking
     FOREIGN KEY (id_Cartao) REFERENCES Cartao (id_Cartao)
 );
 
--- Atualizar a tabela Conta para adicionar a chave estrangeira para Cartao
-ALTER TABLE Conta
-    ADD COLUMN id_cartao INT;
-ALTER TABLE Conta
-    ADD CONSTRAINT fk_cartao FOREIGN KEY (id_cartao) REFERENCES Cartao (id_cartao);
+-- -- Atualizar a tabela Conta para adicionar a chave estrangeira para Cartao
+-- ALTER TABLE Conta
+--     ADD COLUMN id_cartao INT;
+-- ALTER TABLE Conta
+--     ADD CONSTRAINT fk_cartao FOREIGN KEY (id_cartao) REFERENCES Cartao (id_cartao);
